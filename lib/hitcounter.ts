@@ -4,7 +4,7 @@ import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import { Construct } from 'constructs';
 
 export interface HitCounterProps {
-  /** the function for which we want to count url hits **/
+  /** a função para a qual queremos contar os acessos de URL **/
   downstream: lambda.IFunction;
 
   readCapacity?: number;
@@ -13,7 +13,7 @@ export interface HitCounterProps {
 export class HitCounter extends Construct {
   public readonly handler: lambda.Function;
 
-  /** the hit counter table */
+  /** a tabela do contador de visitas */
   public readonly table: dynamodb.Table;
 
   constructor(scope: Construct, id: string, props: HitCounterProps) {
@@ -40,10 +40,10 @@ export class HitCounter extends Construct {
         }
     });
 
-    // grant the lambda role read/write permissions to our table
+    // concede permissões de leitura/gravação à função lambda para nossa tabela
     table.grantReadWriteData(this.handler);
 
-    // grant the lambda role invoke permissions to the downstream function
+    // concede à função lambda permissões de invocação para a função downstream
     props.downstream.grantInvoke(this.handler);
   }
 }
